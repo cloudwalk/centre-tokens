@@ -15,7 +15,7 @@ const BLACKLISTER = 0x063d13783a0a2ce65b1ca00d9e897e6c8b1ec86b;
 // If replacing with real minters need to modify printMinterInfo
 const minters = ["0x0000", "0x0001"];
 
-const NAME = "BRL//C";
+const NAME = "BRL Coin";
 const SYMBOL = "BRLC";
 const CURRENCY = "BRL";
 const DECIMALS = 6;

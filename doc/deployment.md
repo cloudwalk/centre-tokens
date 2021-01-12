@@ -72,7 +72,7 @@ available, but can only be called once per proxy.
 
    ```
    initialize(
-          "BRL//C",
+          "BRL Coin",
           "BRLC",
           "BRL",
           6,
