@@ -6,6 +6,7 @@ coverage.json
 package-lock.json
 .idea/
 artifacts/
+artifacts-ovm/
 contracts/.DS_Store
 token.json
 credentials.json
