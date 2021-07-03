@@ -33,7 +33,7 @@ import { V2UpgraderHelper } from "./V2UpgraderHelper.sol";
 
 /**
  * @title V2 Upgrader
- * @notice Performs USDC v2 upgrade, and runs a basic sanity test in a single
+ * @notice Performs BRLC v2 upgrade, and runs a basic sanity test in a single
  * atomic transaction, rolling back if any issues are found. This may be
  * overkill, but the peace of mind is worth the gas spent. By performing the
  * upgrade atomically, it ensures that there is no disruption of service if the
@@ -54,7 +54,7 @@ contract V2Upgrader is Ownable {
      * @param proxy             FiatTokenProxy contract
      * @param implementation    FiatTokenV2 implementation contract
      * @param newProxyAdmin     Grantee of proxy admin role after upgrade
-     * @param newName           New ERC20 name (e.g. "USD//C" -> "USD Coin")
+     * @param newName           New ERC20 name (e.g. "BRL//C" -> "BRL Coin")
      */
     constructor(
         FiatTokenProxy proxy,
@@ -122,7 +122,7 @@ contract V2Upgrader is Ownable {
 
         // Check that this contract sufficient funds to run the tests
         uint256 contractBal = _helper.balanceOf(address(this));
-        require(contractBal >= 2e5, "V2Upgrader: 0.2 USDC needed");
+        require(contractBal >= 2e5, "V2Upgrader: 0.2 BRLC needed");
 
         uint256 callerBal = _helper.balanceOf(msg.sender);
 
@@ -184,8 +184,8 @@ contract V2Upgrader is Ownable {
             "V2Upgrader: approve/transferFrom test failed"
         );
 
-        // Transfer any remaining USDC to the caller
-        withdrawUSDC();
+        // Transfer any remaining BRLC to the caller
+        withdrawBRLC();
 
         // Tear down
         _helper.tearDown();
@@ -193,15 +193,15 @@ contract V2Upgrader is Ownable {
     }
 
     /**
-     * @notice Withdraw any USDC in the contract
+     * @notice Withdraw any BRLC in the contract
      */
-    function withdrawUSDC() public onlyOwner {
-        IERC20 usdc = IERC20(address(_proxy));
-        uint256 balance = usdc.balanceOf(address(this));
+    function withdrawBRLC() public onlyOwner {
+        IERC20 brlc = IERC20(address(_proxy));
+        uint256 balance = brlc.balanceOf(address(this));
         if (balance > 0) {
             require(
-                usdc.transfer(msg.sender, balance),
-                "V2Upgrader: failed to withdraw USDC"
+                brlc.transfer(msg.sender, balance),
+                "V2Upgrader: failed to withdraw BRLC"
             );
         }
     }

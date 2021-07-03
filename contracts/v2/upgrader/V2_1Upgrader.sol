@@ -118,7 +118,7 @@ contract V2_1Upgrader is Ownable {
 
         // Check that this contract sufficient funds to run the tests
         uint256 contractBal = _helper.balanceOf(address(this));
-        require(contractBal >= 2e5, "V2_1Upgrader: 0.2 USDC needed");
+        require(contractBal >= 2e5, "V2_1Upgrader: 0.2 BRLC needed");
 
         uint256 callerBal = _helper.balanceOf(msg.sender);
 
@@ -182,8 +182,8 @@ contract V2_1Upgrader is Ownable {
             "V2_1Upgrader: approve/transferFrom test failed"
         );
 
-        // Transfer any remaining USDC to the caller
-        withdrawUSDC();
+        // Transfer any remaining BRLC to the caller
+        withdrawBRLC();
 
         // Tear down
         _helper.tearDown();
@@ -191,15 +191,15 @@ contract V2_1Upgrader is Ownable {
     }
 
     /**
-     * @notice Withdraw any USDC in the contract
+     * @notice Withdraw any BRLC in the contract
      */
-    function withdrawUSDC() public onlyOwner {
-        IERC20 usdc = IERC20(address(_proxy));
-        uint256 balance = usdc.balanceOf(address(this));
+    function withdrawBRLC() public onlyOwner {
+        IERC20 brlc = IERC20(address(_proxy));
+        uint256 balance = brlc.balanceOf(address(this));
         if (balance > 0) {
             require(
-                usdc.transfer(msg.sender, balance),
-                "V2_1Upgrader: failed to withdraw USDC"
+                brlc.transfer(msg.sender, balance),
+                "V2_1Upgrader: failed to withdraw BRLC"
             );
         }
     }
